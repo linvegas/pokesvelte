@@ -1,0 +1,50 @@
+@import "reset.css";
+
+:root {
+  @media (prefers-color-scheme: dark) {
+    --bg-color-500:      hsl(220, 13%, 10%);
+    --bg-color-400:      hsl(220, 13%, 18%);
+    --bg-color-300:      hsl(220, 13%, 30%);
+
+    --text-color-400:    hsl(219, 14%, 71%);
+    --text-color-600:    hsl(220, 6% , 52%);
+
+    --blue-color-200:    hsl(209, 85%, 87%);
+    --blue-color-300:    hsl(208, 82%, 74%);
+    --blue-color-400:    hsl(207, 82%, 66%);
+    --blue-color-600:    hsl(208, 43%, 49%);
+
+    --green-color:       hsl(95 , 38%, 62%);
+    --cyan-color:        hsl(169, 50%, 56%);
+
+    --red-color-300:     hsl(357, 68%, 73%);
+    --red-color-400:     hsl(355, 65%, 65%);
+    --red-color-600:     hsl(356, 36%, 48%);
+
+    --yellow-color-300:  hsl(39 , 67%, 59%);
+    --yellow-color-400:  hsl(39 , 67%, 69%);
+    --yellow-color-500:  hsl(39 , 67%, 80%);
+    --yellow-color-600:  hsl(39 , 32%, 51%);
+
+    --magenta-color-400: hsl(286, 60%, 67%);
+    --magenta-color-500: hsl(286, 60%, 57%);
+  }
+}
+
+body {
+  background-color: var(--bg-color-400);
+  color: var(--text-color-400);
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  color: var(--blue-color-400);
+  line-height: 1.1;
+}
+
+.container {
+  width: min(100% - 3rem, 120ch);
+  margin-inline: auto;
+}
+
