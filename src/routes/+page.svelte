@@ -19,24 +19,27 @@
 
 
 <main class="container">
-  <section class="search">
+  <section id="controls">
     <label for="pokeSearch">
       Search:
       <input bind:value={pokeSearch} name="pokeSearch" type="text" />
     </label>
+    <label for="generations">
+      Generation:
+      <select name="generations">
+        {#each generations as gen}
+          <option value="{gen}">{gen}</option>
+        {/each}
+      </select>
+    </label>
   </section>
-  <section class="generations">
-    <ul class="gen-list">
-      {#each generations as gen, id}
-        <li class="gen-item">Gen {id + 1}<!--<br>{gen}--></li>
+  <section id="grid-list">
+    <ul class="poke-list">
+      {#each filteredPokemons as pokemon (pokemon.id) }
+        <PokeCard {pokemon} />
       {/each}
     </ul>
   </section>
-  <ul class="poke-list">
-    {#each filteredPokemons as pokemon (pokemon.id) }
-      <PokeCard {pokemon} />
-    {/each}
-  </ul>
 </main>
 
 <style>
@@ -44,46 +47,22 @@
     padding-block: 1rem;
   }
 
-  .search {
+  #controls {
     padding-block: 1rem;
-    text-align: center;
-  }
-
-  .generations {
-    padding-block: 1rem;
-  }
-
-  .gen-list {
     display: flex;
-    gap: 1.5rem;
     justify-content: center;
+    align-items: center;
+    gap: 1rem;
   }
 
-  .gen-item {
-    background: var(--bg-color-300);
-    padding: 0.25rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: filter 100ms ease-in-out;
-  }
-
-  .gen-item:hover {
-    filter: brightness(1.35);
-    /* background: var(--blue-color-400); */
-    /* color: var(--bg-color-500); */
+  #grid-list {
+    padding-block: 1rem;
   }
 
   .poke-list {
     display: grid;
-    padding-block: 1rem;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
     place-items: center;
     gap: 2rem;
-  }
-
-  @media (max-width: 767px) {
-    ul {
-      grid-template-columns: repeat(1, 1fr);
-    }
   }
 </style>

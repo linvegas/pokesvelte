@@ -26,7 +26,7 @@ img {
   display: block;
 }
 
-input, button {
+input, button, select {
   font: inherit;
 }
 
