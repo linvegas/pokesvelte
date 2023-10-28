@@ -22,3 +22,12 @@ export type PokemonData = {
     };
   }[];
 };
+
+export type PokemonSpecies = {
+  evolution_chain: {
+    url: string;
+  };
+  flavor_text_entries: {
+    flavor_text: string;
+  }[];
+};

@@ -5,39 +5,53 @@
 
   export let data: PageData
 
-  const { pokemon, description } = data
+  const { pokemon, description, evolutions } = data
 </script>
 
-<main class="container flex">
-  <section class="poke-view">
-    <img
-      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
-      alt={`${pokemon.name} Sprite`}
-      title={capitalize(pokemon.name)}
-    />
+<main class="container">
+  <section class="pad flex">
+    <section class="poke-view">
+      <img
+        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
+        alt={`${pokemon.name} Sprite`}
+        title={capitalize(pokemon.name)}
+      />
+    </section>
+    <section class="poke-info">
+      <header>
+        <h2>{capitalize(pokemon.name)}</h2>
+        <span>#{pokemon.id}</span>
+      </header>
+      <p class="poke-desc">{description.flavor_text_entries[0].flavor_text}</p>
+      <div class="card-types">
+        {#each pokemon.types as type }
+          <TypeCard type={type.type.name} />
+        {/each}
+      </div>
+      <article>
+        {#each pokemon.stats as stat}
+          <p>{stat.stat.name}: {stat.base_stat}</p>
+          <meter value={stat.base_stat} min="0" max="125"></meter>
+        {/each}
+      </article>
+    </section>
   </section>
-  <section class="poke-info">
+  <section class="pad">
     <header>
-      <h2>{capitalize(pokemon.name)}</h2>
-      <span>#{pokemon.id}</span>
+      <h2>Evolutions</h2>
     </header>
-    <p class="poke-desc">{description.flavor_text_entries[0].flavor_text}</p>
-    <div class="card-types">
-      {#each pokemon.types as type }
-        <TypeCard type={type.type.name} />
+    <p>{evolutions.chain.species.name}</p>
+    {#each evolutions.chain.evolves_to as evolution}
+      <p>{evolution.species.name}</p>
+      {#each evolution.evolves_to as evol}
+        <p>{evol.species.name}</p>
       {/each}
-    </div>
-    <article>
-      {#each pokemon.stats as stat}
-        <p>{stat.stat.name}: {stat.base_stat}</p>
-        <meter value={stat.base_stat} min="0" max="125"></meter>
-      {/each}
-    </article>
+    {/each}
   </section>
 </main>
 
 <style>
-  main {
+  .pad {
     padding-block: 2rem;
   }
 
