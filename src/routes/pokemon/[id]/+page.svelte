@@ -40,13 +40,31 @@
     <header>
       <h2>Evolutions</h2>
     </header>
-    <p>{evolutions.chain.species.name}</p>
-    {#each evolutions.chain.evolves_to as evolution}
-      <p>{evolution.species.name}</p>
-      {#each evolution.evolves_to as evol}
-        <p>{evol.species.name}</p>
+    <ul>
+      {#each evolutions as pokemon }
+        <li>
+          <p>{pokemon.name} #{pokemon.id}</p>
+          <img
+            src={pokemon.sprites.front_default}
+            alt={`${pokemon.name} sprite` }
+            loading="lazy"
+          />
+        </li>
       {/each}
-    {/each}
+    </ul>
+    <!-- {#if evolutions.chain.evolves_to.length > 0} -->
+    <!--   <p>{evolutions.chain.species.name}</p> -->
+    <!--   {#each evolutions.chain.evolves_to as evol1} -->
+    <!--     <p>{evol1.species.name}</p> -->
+    <!--     {#if evol1.evolves_to.length > 0} -->
+    <!--       {#each evol1.evolves_to as evol2} -->
+    <!--         <p>{evol2.species.name}</p> -->
+    <!--       {/each} -->
+    <!--     {/if} -->
+    <!--   {/each} -->
+    <!-- {:else} -->
+    <!--   <p>This pokemon has no evolutions</p> -->
+    <!-- {/if} -->
   </section>
 </main>
 

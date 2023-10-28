@@ -31,3 +31,28 @@ export type PokemonSpecies = {
     flavor_text: string;
   }[];
 };
+
+type Chain = {
+  evolves_to?: [];
+  species: {
+    name: string;
+  };
+};
+
+export type EvolutionChain = {
+  chain: {
+    evolves_to: {
+      evolves_to: {
+        species: {
+          name: string;
+        };
+      }[];
+      species: {
+        name: string;
+      };
+    }[];
+    species: {
+      name: string;
+    };
+  };
+};
