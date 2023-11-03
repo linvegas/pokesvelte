@@ -1,22 +1,27 @@
 <script lang="ts">
   import type { PageData } from "./$types";
   import PokeCard from "$lib/components/PokeCard.svelte";
+  import { capitalize } from "$lib/utils";
+    import { goto } from "$app/navigation";
 
-  export let data: PageData
+  export let data: PageData;
 
-  const generations = [
-    "Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos"
-  ]
+  const generations = ["kanto", "johto", "hoenn", "sinnoh", "unova", "kalos"];
 
-  let { pokemons } = data
+  let { pokemons } = data;
 
   let pokeSearch = "";
 
   $: filteredPokemons = pokemons.filter((pokemon) => {
-    return pokemon.name.includes(pokeSearch.toLowerCase())
-  })
-</script>
+    return pokemon.name.includes(pokeSearch.toLowerCase());
+  });
 
+  function handleGenQuery(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    // goto(`/?gen=${target.value}`)
+    console.log(target.value)
+  }
+</script>
 
 <main class="container">
   <section id="controls">
@@ -26,16 +31,16 @@
     </label>
     <label for="generations">
       Generation:
-      <select name="generations">
+      <select on:change={handleGenQuery} name="generations">
         {#each generations as gen}
-          <option value="{gen}">{gen}</option>
+          <option value={gen}>{capitalize(gen)}</option>
         {/each}
       </select>
     </label>
   </section>
   <section id="grid-list">
     <ul class="poke-list">
-      {#each filteredPokemons as pokemon (pokemon.id) }
+      {#each filteredPokemons as pokemon (pokemon.id)}
         <PokeCard {pokemon} />
       {/each}
     </ul>
