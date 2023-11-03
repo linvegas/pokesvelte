@@ -12,12 +12,13 @@
   <section class="pad flex">
     <section class="poke-view">
       <img
+        class="inline-auto"
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
         alt={`${pokemon.name} Sprite`}
         title={capitalize(pokemon.name)}
       />
     </section>
-    <section class="poke-info">
+    <section class="section-card">
       <header>
         <h2>{capitalize(pokemon.name)}</h2>
         <span>#{pokemon.id}</span>
@@ -36,35 +37,30 @@
       </article>
     </section>
   </section>
-  <section class="pad">
+  <section class="pad section-card">
     <header>
       <h2>Evolutions</h2>
     </header>
-    <ul>
-      {#each evolutions as pokemon }
-        <li>
-          <p>{pokemon.name} #{pokemon.id}</p>
-          <img
-            src={pokemon.sprites.front_default}
-            alt={`${pokemon.name} sprite` }
-            loading="lazy"
-          />
-        </li>
-      {/each}
-    </ul>
-    <!-- {#if evolutions.chain.evolves_to.length > 0} -->
-    <!--   <p>{evolutions.chain.species.name}</p> -->
-    <!--   {#each evolutions.chain.evolves_to as evol1} -->
-    <!--     <p>{evol1.species.name}</p> -->
-    <!--     {#if evol1.evolves_to.length > 0} -->
-    <!--       {#each evol1.evolves_to as evol2} -->
-    <!--         <p>{evol2.species.name}</p> -->
-    <!--       {/each} -->
-    <!--     {/if} -->
-    <!--   {/each} -->
-    <!-- {:else} -->
-    <!--   <p>This pokemon has no evolutions</p> -->
-    <!-- {/if} -->
+    {#if evolutions.length !== 0}
+      <ul class="flex evol-chain">
+        {#each evolutions as pokemon ,index }
+          {#if index}
+            <p>&gt;</p>
+          {/if}
+          <li class="flex evol-chain-item">
+            <h3>{capitalize(pokemon.name)}</h3>
+            <img
+              class="inline-auto"
+              src={pokemon.sprites.front_default}
+              alt={`${pokemon.name} sprite` }
+              loading="lazy"
+            />
+          </li>
+        {/each}
+      </ul>
+    {:else}
+      <p>This pokemon has no evolutions</p>
+    {/if}
   </section>
 </main>
 
@@ -74,8 +70,6 @@
   }
 
   .flex {
-    /* display: grid; */
-    /* grid-template-columns: 60% 40%; */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -85,18 +79,18 @@
     flex-grow: 1;
   }
 
-  .poke-view img {
+  .inline-auto {
     margin-inline: auto;
   }
 
-  .poke-info {
+  .section-card {
     /* flex-grow: 2; */
     padding: 1rem;
     background: var(--bg-color-300);
     border-radius: 0.5rem;
   }
 
-  .poke-info > header {
+  .section-card > header {
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -110,5 +104,20 @@
     padding-block: 0.5rem;
     display: flex;
     gap: 0.5rem;
+  }
+
+  .evol-chain {
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .evol-chain-item {
+    /* background: slateblue; */
+    flex-direction: column;
+    text-align: center;
+    padding: 0.5rem;
+    aspect-ratio: 1;
+    min-width: 150px;
+    border-radius: 0.5rem;
   }
 </style>
