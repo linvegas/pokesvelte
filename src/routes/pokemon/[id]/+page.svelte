@@ -48,7 +48,11 @@
             <p>&gt;</p>
           {/if}
           <li class="flex evol-chain-item">
-            <h3>{capitalize(pokemon.name)}</h3>
+            <h3>
+              <a href={`/pokemon/${pokemon.id}`}>
+                {capitalize(pokemon.name)}
+              </a>
+            </h3>
             <img
               class="inline-auto"
               src={pokemon.sprites.front_default}
